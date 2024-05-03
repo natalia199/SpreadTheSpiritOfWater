@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class WhaleScript : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject InteractBtn;
+
     void Start()
     {
         
@@ -13,6 +14,16 @@ public class WhaleScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (GameObject.Find("Player").GetComponent<MainPlayer>().interactorNearby && GameObject.Find("Player").GetComponent<MainPlayer>().currentInteractor != null)
+        {
+            if (GameObject.Find("Player").GetComponent<MainPlayer>().currentInteractor.tag == "WhaleInteract") 
+            {
+                InteractBtn.SetActive(true);
+            }
+        }
+        else
+        {
+            InteractBtn.SetActive(false);
+        }
     }
 }

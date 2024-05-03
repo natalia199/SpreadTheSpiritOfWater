@@ -6,6 +6,14 @@ TagManager:
   tags:
   - WhaleInteract
   - MainPlayer
+  - BearInteractor
+  - GarbageBin
+  - RecyclingBin
+  - CompostBin
+  - TrashOnFloor
+  - TrashGarbage
+  - TrashRecycling
+  - TrashCompost
   layers:
   - Default
   - TransparentFX
