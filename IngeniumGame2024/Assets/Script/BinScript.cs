@@ -32,11 +32,14 @@ public class BinScript : MonoBehaviour
         if (other.gameObject.tag == binType)
         {
             Debug.Log("Correct bin");
+            other.gameObject.GetComponent<FoodScript>().beingThrown = false;
             Destroy(other.gameObject);
         }
         else
         {
             Debug.Log("Wrong bin");
+            other.gameObject.GetComponent<FoodScript>().beingThrown = false;
+
             Destroy(other.gameObject);
         }
     }

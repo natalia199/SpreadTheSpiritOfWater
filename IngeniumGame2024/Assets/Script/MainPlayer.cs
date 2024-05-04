@@ -23,34 +23,42 @@ public class MainPlayer : MonoBehaviour
     public GameObject currentTrash = null;
     public GameObject currentBin = null;
 
+    public RuntimeAnimatorController anim;
+
+    public float curveSpeed;
+
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
-        cam.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + camPos.y, this.transform.position.z - camPos.z);
+        cam.transform.position = new Vector3(this.transform.position.x + camPos.x, this.transform.position.y + camPos.y, this.transform.position.z - camPos.z);
     }
 
     void FixedUpdate()
     {
         if (!interacting)
-        {
+        {          
             // Try to interact
-            if (Input.GetKeyDown(KeyCode.E) && interactorNearby && status == "pre")
+            if (Input.GetKey(KeyCode.E) && interactorNearby && status == "pre")
             {
                 // ZOOM IN CAMERA
                 currentInteractor.GetComponent<InteractorScript>().interacting = true;
                 interacting = true;
+
+                GameObject.Find("Main Camera").GetComponent<Animator>().enabled = true;
                 status = "talk";
             }
 
             // Throw trash
-            if (Input.GetKeyDown(KeyCode.Space) && currentBin != null && currentTrash != null && status == "post")
+            if (Input.GetKeyDown(KeyCode.Space) && currentBin != null && trashInHand && status == "post")
             {
                 currentTrash.GetComponent<FoodScript>().setToPlayerPosition(this.transform.position);
+                currentTrash.SetActive(true);
+                //currentTrash.GetComponent<SphereCollider>().isTrigger = false;
+                //currentTrash.GetComponent<FoodScript>().ParabolaThrow(curveSpeed);
 
-                currentTrash = null;
+                trashInHand = false;
 
                 Debug.Log("THREW TRASH");
-                //trashInHand = false;
             }
 
             // player movement
@@ -79,10 +87,13 @@ public class MainPlayer : MonoBehaviour
         else
         {
             // Clean up trash
-            if (Input.GetKeyDown(KeyCode.Space) && interactorNearby && status == "talk")
+            if (Input.GetKeyDown(KeyCode.Space) && status == "talk")
             {
                 // ZOOM OUT CAMERA
+                GameObject.Find("Main Camera").GetComponent<Animator>().runtimeAnimatorController = anim;
                 interacting = false;
+
+                status = "post";
             }
         }
     }

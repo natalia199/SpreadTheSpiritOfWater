@@ -14,7 +14,7 @@ public class WhaleScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameObject.Find("Player").GetComponent<MainPlayer>().interactorNearby && GameObject.Find("Player").GetComponent<MainPlayer>().currentInteractor != null)
+        if (GameObject.Find("Player").GetComponent<MainPlayer>().interactorNearby && GameObject.Find("Player").GetComponent<MainPlayer>().currentInteractor != null && GameObject.Find("Player").GetComponent<MainPlayer>().status == "pre")
         {
             if (GameObject.Find("Player").GetComponent<MainPlayer>().currentInteractor.tag == "WhaleInteract") 
             {
