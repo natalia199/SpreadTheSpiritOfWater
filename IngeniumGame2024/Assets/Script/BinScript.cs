@@ -8,6 +8,8 @@ public class BinScript : MonoBehaviour
 
     public string binType;
 
+    public GameObject garbageIndicator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,23 @@ public class BinScript : MonoBehaviour
     {
         if (GameObject.Find("Player").GetComponent<MainPlayer>().currentTrash == null)
         {
-            // set sign inactive
+            garbageIndicator.SetActive(false);
+        }
+    }
+
+
+    private void OnCollisionEnter(Collision other)
+    {
+        // garbage throw result
+        if (other.gameObject.tag == binType)
+        {
+            Debug.Log("Correct bin");
+            Destroy(other.gameObject);
+        }
+        else
+        {
+            Debug.Log("Wrong bin");
+            Destroy(other.gameObject);
         }
     }
 
@@ -29,17 +47,7 @@ public class BinScript : MonoBehaviour
         {
             other.gameObject.GetComponent<MainPlayer>().currentBin = this.gameObject;
 
-            // Set sign active            
-        }
-
-        // garbage throw result
-        if (other.tag == binType)
-        {
-            //correct
-        }
-        else
-        {
-            //wrong, spit back
+            garbageIndicator.SetActive(true);
         }
     }
 
@@ -48,7 +56,8 @@ public class BinScript : MonoBehaviour
         if (other.tag == "MainPlayer")
         {
             other.gameObject.GetComponent<MainPlayer>().currentBin = null;
-            // Set sign inactive
+
+            garbageIndicator.SetActive(false);
         }
     }
 }

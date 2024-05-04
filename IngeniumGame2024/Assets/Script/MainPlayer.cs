@@ -48,6 +48,8 @@ public class MainPlayer : MonoBehaviour
                 currentTrash.GetComponent<FoodScript>().setToPlayerPosition(this.transform.position);
 
                 currentTrash = null;
+
+                Debug.Log("THREW TRASH");
                 //trashInHand = false;
             }
 
